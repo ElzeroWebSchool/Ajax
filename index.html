@@ -1,0 +1,60 @@
+<!-- 
+  xhr : [X]ML [H]ttp [R]equest
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AJAX</title>
+  </head>
+  <body>
+    <input type="text" class="my-comment" />
+    <button>Get Info</button>
+    <div id="show"></div>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script>
+      $(function() {
+        $("button").on("click", function() {
+          $.ajax({
+            // type: 'POST' // Alias For Method => jQuery Before 1.9.0
+            // cache: false, // Cache The Request, Default is True
+            // async: false, // Asynchronous Or No
+            // timeout: 3000, // Timeout For The request
+            // dataType: 'html', // Data Expected From The Server Response, Default is Intel Guess
+            // username: 'osama', // For Authentication
+            // password: 'SoulSoul', // For Authentication
+            // contentType: 'multipart/form-data', // Content Type For The Request, Default is application/x-www-form-urlencoded
+            method: "POST", // Method Used For The Request
+            url: "comments.php", // URL To Send The Request, Default is Current URL
+            data: { comment: $(".my-comment").val() }, // Data To Send With The Request
+            beforeSend: function(xhr) {
+              console.log(`Before Send`);
+            },
+            success: function(data, status, xhr) {
+              // Function To Run When Request Is Succeeded
+              console.log(data); // Data
+              console.log(status); // Request Status
+              console.log(xhr); // XHR Object
+              console.log(`Success`);
+              $("#show").html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log(xhr); // XHR Object
+              console.log(status); // Request Status
+              console.log(error); // Error Message
+              console.log(`Error`);
+            },
+            complete: function(xhr, status) {
+              // Function To Run When Request Is Complete
+              console.log(xhr);
+              console.log(status);
+              console.log(`Complete`);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
